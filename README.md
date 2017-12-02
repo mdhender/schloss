@@ -9,7 +9,7 @@ If you look at the site for Kafka, you'll find a copyright and license in the fo
 
     The contents of this website are © 2016 Apache Software Foundation under the terms of the Apache License v2.
 
-# Preliminary Steps
+# [Preliminary Steps](https://github.com/mdhender/schloss/releases/tag/preliminary-steps)
 
 I started by setting up a new Hugo site on my computer:
 
