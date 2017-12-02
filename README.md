@@ -42,7 +42,7 @@ The remainder of the pages on the Kafka site all have a similar style, so they'l
 Hugo allows you to create `archetype` files to simplify creating content.
 I'm going to call my main archetype an article since the Kafka site doesn't feel like a blog.
 
-# Setting up the styles
+# [Setting up the styles](https://github.com/mdhender/schloss/releases/tag/setup-styles)
 
 The nice thing about cloning an existing theme is that all the hard work of creating and testing the styles has been done for you.
 You want to make sure that you've gotten all the CSS and script files that you need.
