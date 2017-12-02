@@ -1,0 +1,12 @@
+{{ partial "header.html" . }}
+{{ partial "top.html" . }}
+
+<div class="content">
+	{{ partial "nav.html" . }}
+	{{ .Content }}
+<script>
+// Show selected style on nav item
+$(function() { $('.b-nav__home').addClass('selected'); });
+</script>
+
+{{ partial "footer.html" . }}

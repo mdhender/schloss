@@ -91,7 +91,7 @@ I ran Hugo to serve up the site:
     0 categories created
     0 tags created
     total in 7 ms
-    Watching for changes in /Volumes/ssda/mdhender/Software/go/src/github.com/mdhender/schloss/{data,content,layouts,themes,static}
+    Watching for changes in ~/schloss/{data,content,layouts,themes,static}
     Serving pages from memory
     Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
     Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
@@ -112,7 +112,7 @@ There was one network error for an image file (`kafka_diagram.png`), so I copied
 One of the nice features with Hugo is the live refresh.
 Hugo picked up that I added a new directory with a new image in it.
 
-    adding created directory to watchlist /Volumes/ssda/mdhender/Software/go/src/github.com/mdhender/schloss/static/images
+    adding created directory to watchlist ~/schloss/static/images
 
     Static file changes detected
     2017-12-02 14:55:36.699 -0700
@@ -153,3 +153,92 @@ I put those files in to the `themes/schloss/images/` folder.
 
 Later on I'll put better images in there. For now, though, the placeholders will work just fine.
 They'll be a good reminder that users need to add their own to their site's directory to override them.
+
+# Create the Homepage Template
+
+You probably know that the homepage can be built from either `layouts/index.html` or `layouts/_default/list.html`
+I recommend using the first because it aligns nicely with the `content/_index.md` file that we'll be putting our homepage's content in.
+
+To start, we're going to move the `static/index.html` file into the theme.
+
+    $ mv static/index.html themes/schloss/layouts/index.html
+
+Nothing seems to change in the browser because Hugo's smart enough to see that the file's moved:
+
+    Static file changes detected
+    2017-12-02 16:17:22.407 -0700
+    File no longer exists in static dir, removing /index.html
+
+    Change detected, rebuilding site
+    2017-12-02 16:17 -0700
+    Template changed "~/schloss/themes/schloss/layouts/index.html": REMOVE
+    Template changed "~/schloss/themes/schloss/layouts/index.html": CREATE
+
+A neat thing about the Kafka page was that it includes chunk files (e.g., `#include virtual="includes/_header.htm"`).
+We're going to slice up that index file into similar chunks and even similar names.
+
+## Create the Header Partial
+
+A partial is just a template that lives in the `layouts/partials/` directory.
+The advantage of a partial over other templates is that Hugo automatically searches for them.
+(That may make more sense in a future life.)
+
+Start by copying over the existing chunk:
+
+    $ cp kafka-site/includes/_header.htm themes/schloss/layouts/partials/header.html
+
+Note that I used `.html` for the extension. Hugo likes that.
+
+Now change the index file to use that partial. In short, we're changing this:
+
+    <!--#include virtual="includes/_header.htm" -->
+
+to this:
+
+    {{ partial "header.html" . }}
+
+After we save the change, Hugo will automatically update the browser.
+After glancing at the page and verifying that it still looks as expected, we'll change the next chunk.
+
+    $ cp kafka-site/includes/_top.htm themes/schloss/layouts/partials/top.html
+
+And update the index file from:
+
+    <!--#include virtual="includes/_top.htm" -->
+
+to:
+
+    {{ partial "top.html" . }}
+
+Then check the browswer.
+It's important (even though it is very tedious) to check the browser after each update.
+If you don't, you'll eventually find yourself staring at a broken page and wondering what went wrong.
+Small steps actually means faster progress in the long term.
+
+After we do the same for the footer chunk, the `themes/schloss/layouts/partials/` directory looks like:
+
+    $ ls -l themes/schloss/layouts/partials/
+    total 32
+    -rw-r--r--  1 mdhender  staff  3874 Dec  2 16:39 footer.html
+    -rw-r--r--  1 mdhender  staff  2671 Dec  2 16:29 header.html
+    -rw-r--r--  1 mdhender  staff  3792 Dec  2 16:36 nav.html
+    -rw-r--r--  1 mdhender  staff   144 Dec  2 16:34 top.html
+
+Let's do a copy+paste to move the content to the `content/_index.md` file.
+
+When we're done, the `themes/schloss/layouts/index.html` template looks like:
+
+    {{ partial "header.html" . }}
+    {{ partial "top.html" . }}
+    <div class="content">
+        {{ partial "nav.html" . }}
+        {{ .Content }}
+    <script>
+    // Show selected style on nav item
+    $(function() { $('.b-nav__home').addClass('selected'); });
+    </script>
+    {{ partial "footer.html" . }}
+
+I'll be the first to admit that it looks a little odd because of the way the partials are split up.
+We'll fix that later.
+For now, though, congratulations are in order: you've made a working homepage template!
