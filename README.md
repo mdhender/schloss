@@ -7,7 +7,7 @@ This tutorial copies the theme from Apache's [Kafka](https://kafka.apache.org/) 
 Please check the license for the site that you're going to copy from to make sure that you're allowed to.
 If you look at the site for Kafka, you'll find a copyright and license in the footer:
 
-    The contents of this website are © 2016 Apache Software Foundation under the terms of the [Apache License v2](https://www.apache.org/licenses/LICENSE-2.0.html).
+    The contents of this website are © 2016 Apache Software Foundation under the terms of the Apache License v2.
 
 # Preliminary Steps
 
@@ -17,7 +17,7 @@ I started by setting up a new Hugo site on my computer:
     $ cd schloss
     $ hugo new theme schloss
 
-I created a LICENSE file (naturally, I used the Apache License v2), along with a NOTIFY.md to acknowledge the source.
+I created a LICENSE file (naturally, I used the [Apache License v2](https://www.apache.org/licenses/LICENSE-2.0.html)), along with a NOTIFY.md to acknowledge the source.
 
 Before starting, I cloned the Kafka site to my computer.
 It's faster to work with a local copy, plus it reduces the bandwidth useage on the source.
