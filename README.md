@@ -17,7 +17,7 @@ I started by setting up a new Hugo site on my computer:
     $ cd schloss
     $ hugo new theme schloss
 
-I created a LICENSE file (naturally, I used the [Apache License v2](https://www.apache.org/licenses/LICENSE-2.0.html)), along with a NOTIFY.md to acknowledge the source.
+I created a LICENSE file (naturally, I used the [Apache License v2](https://www.apache.org/licenses/LICENSE-2.0.html)), along with a NOTICE.md to acknowledge the source.
 
 Before starting, I cloned the Kafka site to my computer.
 It's faster to work with a local copy, plus it reduces the bandwidth useage on the source.
