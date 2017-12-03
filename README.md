@@ -516,3 +516,69 @@ Go ahead and delete it, then create a new article:
     ---
 
 Congratulations, we now have the homepage showing menu items that link to our articles.
+
+# Tag the current page in the menu tree
+
+The site uses Javascript to change the style on the selected menu item:
+
+    <script>
+    // Show selected style on nav item
+    $(function() { $('.b-nav__intro').addClass('selected'); });
+    </script>
+
+We can do that with the template, or we could change the `nav.html` partial to detect the page and add the class.
+Either way should work, so let's try both.
+
+## Using Javascript to tag the item
+
+The Javascript logic depends on a class name being set (like `b-nav__home` or `b-nav__intro`).
+Our content sets the menu item name to a unique value such as `home` or `introduction`.
+So all we need to do is update the class name in the loops in `themes/schloss/layouts/partials/nav.html`.
+
+    {{ range .Site.Menus.articles }}
+    <a class="b-nav__{{.Name}} nav__item" href="{{.URL}}">{{.Name}}</a>
+    {{ end }}
+
+and
+
+    {{ range .Site.Menus.articles }}
+    <div class="b-nav__{{.Name}} navindicator__item"></div>
+    {{ end }}
+
+Save the changes, then look at the native HTML in the browser. You should see
+
+    <a class="b-nav__home nav__item" href="/">home</a>
+    <a class="b-nav__introduction nav__item" href="/article/intro/">introduction</a>
+    <a class="b-nav__performance nav__item" href="/article/performance/">performance</a>
+    <a class="b-nav__contact nav__item" href="/article/contact/">contact</a>
+
+That's due to `{{.Name}}` in the partial.
+
+Next we have to update the Javascript snippet that is in the template.
+
+The template for `themes/schloss/layouts/index.html` (which generates the homepage), already has `b-nav__home` in it, so we're good there.
+We do need to update the single page layout for articles, though.
+At the moment, `themes/schloss/layouts/article/single.html` has `b-nav__intro` in it:
+
+    <script>
+    // Show selected style on nav item
+    $(function() { $('.b-nav__intro').addClass('selected'); });
+    </script>
+
+Let's update that to use the page name instead.
+
+    {{ with .Params.menu.articles }}
+    <script>
+    // Show selected style on nav item
+    $(function() { $('.b-nav__{{.name}}').addClass('selected'); });
+    </script>
+    {{ end }}
+
+Wrapping the `.Params` check in a `with` construct allows us to avoid errors if the user doesn't supply a menu group.
+
+Save this and check the browser.
+You should see that the highlight works for each page.
+
+## Using Hugo to tag the item
+
+With Hugo's built-in menu support, we add the class as we're looping through the choices.

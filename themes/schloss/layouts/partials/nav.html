@@ -2,7 +2,7 @@
   <div class="nav-scroller">
     <div class="nav__inner">
       {{ range .Site.Menus.articles }}
-      <a class="b-nav__home nav__item" href="{{.URL}}">{{.Name}}</a>
+      <a class="b-nav__{{.Name}} nav__item" href="{{.URL}}">{{.Name}}</a>
       {{ end }}
       <a class="btn" href="/downloads">download</a>
       <div class="social-links">
@@ -12,7 +12,7 @@
   </div>
   <div class="navindicator">
     {{ range .Site.Menus.articles }}
-    <div class="b-nav__home navindicator__item"></div>
+    <div class="b-nav__{{.Name}} navindicator__item"></div>
     {{ end }}
   </div>
 </nav>
