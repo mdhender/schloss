@@ -16,38 +16,6 @@
 	</body>
 
     <script type="text/javascript" src="/js/syntaxhighlighter.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
-	<script>
-		$(function () {
-			// list of pages that are rendered with Handlebars
-			var templates = [
-				'introduction',
-				'implementation',
-				'design',
-				'api',
-				'configuration',
-				'ops',
-				'security',
-				'connect',
-				'streams',
-				'quickstart',
-				'toc',
-				'upgrade',
-				'content'
-			];
-
-			// loop through all Handlebar templates on the page and render them
-			for(var i = 0; i < templates.length; i++) {
-				var templateScript = $("#" + templates[i] + "-template").html();
-				if(templateScript) {
-					var template = Handlebars.compile(templateScript);
-					var html = template(context);
-					$(".p-" + templates[i]).html(html);
-				}
-			}
-		});
-	</script>
-
 	<script src="/js/jquery.sticky-kit.min.js"></script>
 	<script>
 		$(function() {
@@ -112,7 +80,7 @@
 		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-		ga('create', 'UA-7818013-4', 'apache.org');
+		ga('create', 'UA-XXXXXXX-1', 'schloss.example.org');
 		ga('send', 'pageview');
 
 	</script>
