@@ -242,3 +242,157 @@ When we're done, the `themes/schloss/layouts/index.html` template looks like:
 I'll be the first to admit that it looks a little odd because of the way the partials are split up.
 We'll fix that later.
 For now, though, congratulations are in order: you've made a working homepage template!
+
+# Create the Article Template
+
+As mentioned earlier, I'm going to use "article" as the archetype for pages in this theme.
+(I'm likely abusing the word archetype here. It's a handy way for me to thing about pages.)
+
+## Create the archetype
+
+Hugo uses the archetype file when you create new content.
+You don't really need to create an archetype file, but it's classy if you do.
+I created `themes/schloss/archetypes/article.md` with the following content:
+
+    +++
+    title = {{ .Name | title }}
+    date = {{ .Date }}
+    draft = true
+    +++
+
+You'd then be able to run a command like `hugo new article/lorem.md` to create a new article.
+
+    $ hugo new article/lorem.md
+    ~/schloss/content/article/lorem.md created
+    $ cat content/article/lorem.md 
+    ---
+    title: "Lorem"
+    date: 2017-12-02T17:16:41-07:00
+    draft: true
+    ---
+
+The key takeaway is that the name of the directory under `content/` is the name of the archetype.
+
+## Create the template
+
+Hugo offers a lot of choices for single page templates.
+I like to create a template with the same name as the archetype.
+That makes it easier for me to understand how the pieces fit together.
+
+To start with, I'm going to copy one of the Kafka pages to a template.
+I'm doing this so that I can incrementally add the pieces needed to make it work with Hugo.
+
+    $ mkdir themes/schloss/layouts/article
+    $ cp kafka-site/intro.html themes/schloss/layouts/article/single.html
+
+In the command above, `article` is the archetype (sometimes just called the type or the TYPE) and single.html is the name that Hugo looks for to build single pages.
+
+If you look at `intro.html`, you should notice that the layout looks very familiar:
+
+    <!--#include virtual="includes/_header.htm" -->
+    <!--#include virtual="includes/_top.htm" -->
+    <div class="content">
+    <!--#include virtual="includes/_nav.htm" -->
+    <div class="right">
+        <h1>Introduction</h1>
+        <!--#include virtual="10/introduction.html" -->
+    <!--#include virtual="includes/_footer.htm" -->
+    <script>
+    // Show selected style on nav item
+    $(function() { $('.b-nav__intro').addClass('selected'); });
+    </script>
+
+We'll change the include chunks to partials, just like we did for the homepage template:
+    {{ partial "header.html" . }}
+    {{ partial "top.html" . }}
+    <div class="content">
+        {{ partial "nav.html" . }}
+    <div class="right">
+        <h1>Introduction</h1>
+        <!--#include virtual="10/introduction.html" -->
+    {{ partial "footer.html" . }}
+    <script>
+    // Show selected style on nav item
+    $(function() { $('.b-nav__intro').addClass('selected'); });
+    </script>
+
+I want to point out that the original uses a Javascript snippet to show which navigation item is selected.
+Hugo has a way to handle that, which we'll cover later. For now, just let it remain hard-coded.
+
+To test this out, we'll need to create an article with some content:
+
+    $ hugo new article/intro.md
+    ~/schloss/content/article/intro.md created
+
+    $ vi content/article/intro.md
+
+    $ cat content/article/intro.md
+    ---
+    title: "Introduction"
+    date: 2017-12-02T17:29:45-07:00
+    draft: false
+    ---
+
+    # Introduction
+    Curabitur sit amet metus sem.
+    Suspendisse sollicitudin nec elit eget condimentum. Fusce facilisis lorem in nibh fringilla, vel malesuada ex euismod.
+
+    Nulla ac purus fringilla, egestas dui nec, tristique dolor.
+    Nam interdum porttitor sollicitudin. Vivamus et gravida nunc.
+    Integer iaculis, nisi a rhoncus interdum, justo orci fringilla augue, vehicula lobortis erat orci in tellus.
+    Mauris facilisis varius semper.
+    Nullam scelerisque purus at venenatis tristique.
+    Vestibulum in enim quam.
+    Morbi vitae ligula imperdiet, egestas magna sed, egestas dui.
+    Sed a nibh non sem fermentum pulvinar eu ut purus.
+
+Things to note:
+1.  Hugo creates new articles with `draft` set to true. You must set it to false to publish it (ok, that's a bit of a lie).
+1.  Hugo sets the `title` to the name of the file. I changed it.
+1.  I added some "lorem ipsum" text to test with.
+1.  Hugo created the page at `http://localhost:1313/article/intro/`.
+
+Take a look at that page. You should see a page with the expected styling, big heading of "Introduction," and no content.
+You see the header because it's hard-coded into the article template.
+Let's fix that template to show the article's content.
+
+Open the `themes/schloss/layouts/article/single.html` file and look for the line with `<!--#include virtual="10/introduction.html" -->`.
+That's where the original page loaded the content.
+With Hugo, you load content using `{{.Content}}`, so let's replace that line:
+
+    {{ partial "header.html" . }}
+    {{ partial "top.html" . }}
+    <div class="content">
+        {{ partial "nav.html" . }}
+    <div class="right">
+            <h1>Introduction</h1>
+        {{.Content}}
+    {{ partial "footer.html" . }}
+    <script>
+    // Show selected style on nav item
+    $(function() { $('.b-nav__intro').addClass('selected'); });
+    </script>
+
+Now the page looks right, except that "Introduction" is there twice.
+That's because we have it in both the single page template and the article.
+
+If you look at the original site, headings are treated inconsistently.
+Sometimes they're in the main HTML file, sometimes in a child.
+The site's not that big, so it's not a problem there.
+I'd like to be a bit more general, so I'm going to delete the heading from the template and keep it in the content file.
+
+After making the change, `themes/schloss/layouts/article/single.html` contains:
+
+    {{ partial "header.html" . }}
+    {{ partial "top.html" . }}
+    <div class="content">
+        {{ partial "nav.html" . }}
+    <div class="right">
+        {{.Content}}
+    {{ partial "footer.html" . }}
+    <script>
+    // Show selected style on nav item
+    $(function() { $('.b-nav__intro').addClass('selected'); });
+    </script>
+
+And that means that you've created a single page template.
