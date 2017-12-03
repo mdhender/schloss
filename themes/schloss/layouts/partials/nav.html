@@ -4,22 +4,7 @@
       {{ $currentPage := . }}
       {{ range .Site.Menus.articles }}
         {{ if $currentPage.IsMenuCurrent "articles" . }}
-          {{ if ne .Name "documentation" }}
-            <a class="b-nav__{{.Name}} nav__item selected" href="{{.URL}}">{{.Name}}</a>
-          {{ else }}
-            <div class="nav__item nav__item__with__subs--expanded">
-              <a class="b-nav__documentation nav__item nav__sub__anchor selected" href="/article/documentation/">documentation</a>
-              <a class="nav__item nav__sub__item" href="#gettingStarted">getting started</a>
-              <a class="nav__item nav__sub__item" href="/article/documentation/#api">APIs</a>
-              <a class="b-nav__streams nav__item nav__sub__item" href="/article/documentation/streams">kafka streams</a>
-              <a class="nav__item nav__sub__item" href="/article/documentation/#connect">kafka connect</a>
-              <a class="nav__item nav__sub__item" href="/article/documentation/#configuration">configuration</a>
-              <a class="nav__item nav__sub__item" href="/article/documentation/#design">design</a>
-              <a class="nav__item nav__sub__item" href="/article/documentation/#implementation">implementation</a>
-              <a class="nav__item nav__sub__item" href="/article/documentation/#operations">operations</a>
-              <a class="nav__item nav__sub__item" href="/article/documentation/#security">security</a>
-            </div>
-          {{ end }}
+          <a class="b-nav__{{.Name}} nav__item selected" href="{{.URL}}">{{.Name}}</a>
         {{ else }}
           <a class="b-nav__{{.Name}} nav__item" href="{{.URL}}">{{.Name}}</a>  
         {{ end }}
@@ -32,9 +17,7 @@
   </div>
   <div class="navindicator">
     {{ range .Site.Menus.articles }}
-    <div class="b-nav__{{.Name}}
-    {{ if $currentPage.IsMenuCurrent "articles" . }}selected{{ end }}
-    navindicator__item"></div>
+    <div class="b-nav__{{.Name}}{{ if $currentPage.IsMenuCurrent "articles" . }} selected{{ end }} navindicator__item"></div>
     {{ end }}
   </div>
 </nav>
