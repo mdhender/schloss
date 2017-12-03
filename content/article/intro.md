@@ -2,6 +2,10 @@
 title: "Introduction"
 date: 2017-12-02T17:29:45-07:00
 draft: false
+menu:
+    articles:
+        name: "introduction"
+        weight: 2
 ---
 
 # Introduction

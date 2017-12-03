@@ -397,3 +397,122 @@ After making the change, `themes/schloss/layouts/article/single.html` contains:
     </script>
 
 And that means that you've created a single page template.
+
+# Linking to Articles from the Homepage
+
+This theme has a navigation bar on the left with the name of all the articles.
+To test this out, we'll start with two of the original pages, Perfomance and Contact.
+(FWIW, I picked them because they're small.)
+
+    $ hugo new article/contact.md
+    ~/schloss/content/article/contact.md created
+    macpro:schloss mdhender$ hugo new article/performance.md
+    ~/schloss/content/article/performance.md created
+
+I edited those files and changed them to Markdown format.
+Then I compared the way that each looked when Hugo served them to the originals.
+They were identical except for the menu (which we'll address later).
+
+There was one other difference. The URL for this included the path:
+
+*   http://localhost:1313/article/performance/
+*   http://localhost:1313/article/contact/
+
+The original didn't have `/article/` in it.
+If we were converting a site to Hugo and SEO was important, we'd have to use slugs to fix the path.
+Since this is a theme tutorial, I'm not going to worry about it.
+
+The simplest thing that could possible work for the link is to update the homepage template and hard code the path.
+That's an easy change to the `themes/schloss/layouts/partials/nav.html` file:
+
+      <a class="b-nav__performance nav__item" href="/performance">performance</a>
+      <a class="b-nav__contact nav__item" href="/contact">contact us</a>
+
+To:
+
+      <a class="b-nav__performance nav__item" href="/article/performance/">performance</a>
+      <a class="b-nav__contact nav__item" href="/article/contact/">contact us</a>
+
+A quick check of the browser confirms that the links work.
+But it's really not a good solution.
+It'd be better to have the menu built by Hugo from the actual list of articles.
+
+Hugo has good support for menus, so let's add menu information to each article.
+The entry will define the menu group, the name to use, and the relative weight for ordering.
+
+For example, the front matter for `content/article/intro.md` will look like:
+
+    ---
+    title: "Introduction"
+    date: 2017-12-02T17:29:45-07:00
+    draft: false
+    menu:
+        articles:
+            name: "introduction"
+            weight: 2
+    ---
+
+After updating the articles, we'll change the `themes/schloss/layouts/partials/nav.html` file to use the menu group we created:
+
+    <nav class="b-sticky-nav">
+    <div class="nav-scroller">
+        <div class="nav__inner">
+        {{ range .Site.Menus.articles }}
+        <a class="b-nav__home nav__item" href="{{.URL}}">{{.Name}}</a>
+        {{ end }}
+        <a class="btn" href="/downloads">download</a>
+        <div class="social-links">
+            <a class="twitter" href="https://twitter.com/apachekafka" target="_blank">@apachekafka</a>
+        </div>
+        </div>
+    </div>
+    <div class="navindicator">
+        {{ range .Site.Menus.articles }}
+        <div class="b-nav__home navindicator__item"></div>
+        {{ end }}
+    </div>
+    </nav>
+
+We use `.Site.Menus.articles` because we used `menu: articles:` in the front matter.
+The `range` command that loops through all of the pages added to that menu group.
+
+I hard coded "b-nav__intro" for the class on on all the items, so our selector won't work.
+As usual, we'll worry about that later.
+
+Another quick look at the browser shows that the menu looks pretty much like we want it to.
+
+## Add a default menu group to the page archetype
+
+We can add the menu group to our archetype file so that we don't have to remember to add it each time we create content.
+All we have to do is add it to `themes/schloss/archetypes/article.md`.
+
+    ---
+    title: "{{ replace .TranslationBaseName "-" " " | title }}"
+    date: {{ .Date }}
+    draft: true
+    menu:
+        articles:
+            name: "{{ replace .TranslationBaseName "-" " " | lower }}"
+            weight: 999
+    ---
+
+Actually, that's not quite true.
+When Hugo created our site, it created a file, `archetypes/default.md`.
+As long as that file exists, we can't use an archetype from our theme.
+Go ahead and delete it, then create a new article:
+
+    $ hugo new article/project.md
+    ~/schloss/content/article/project.md created
+
+    $ cat content/article/project.md 
+    ---
+    title: "Project"
+    date: 2017-12-02T21:39:00-07:00
+    draft: true
+    menu:
+        articles:
+            name: "project"
+            weight: 999
+    ---
+
+Congratulations, we now have the homepage showing menu items that link to our articles.

@@ -1,3 +1,10 @@
+---
+menu:
+    articles:
+        name: "home"
+        weight: 1
+---
+
 	<div class="right right-home">
 		<div class="desc">
 			<a href="/documentation/#producerapi" class="desc-item">
