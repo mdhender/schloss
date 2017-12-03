@@ -5,7 +5,7 @@ draft: false
 menu:
     articles:
         name: "contact"
-        weight: 24
+        weight: 12
 ---
 
 # Contact

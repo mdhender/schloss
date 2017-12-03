@@ -3,11 +3,28 @@
     <div class="nav__inner">
       {{ $currentPage := . }}
       {{ range .Site.Menus.articles }}
-      <a class="b-nav__{{.Name}}
-      {{ if $currentPage.IsMenuCurrent "articles" . }}selected{{ end }}
-      nav__item" href="{{.URL}}">{{.Name}}</a>
+        {{ if $currentPage.IsMenuCurrent "articles" . }}
+          {{ if ne .Name "documentation" }}
+            <a class="b-nav__{{.Name}} nav__item selected" href="{{.URL}}">{{.Name}}</a>
+          {{ else }}
+            <div class="nav__item nav__item__with__subs--expanded">
+              <a class="b-nav__documentation nav__item nav__sub__anchor selected" href="/article/documentation/">documentation</a>
+              <a class="nav__item nav__sub__item" href="#gettingStarted">getting started</a>
+              <a class="nav__item nav__sub__item" href="/article/documentation/#api">APIs</a>
+              <a class="b-nav__streams nav__item nav__sub__item" href="/article/documentation/streams">kafka streams</a>
+              <a class="nav__item nav__sub__item" href="/article/documentation/#connect">kafka connect</a>
+              <a class="nav__item nav__sub__item" href="/article/documentation/#configuration">configuration</a>
+              <a class="nav__item nav__sub__item" href="/article/documentation/#design">design</a>
+              <a class="nav__item nav__sub__item" href="/article/documentation/#implementation">implementation</a>
+              <a class="nav__item nav__sub__item" href="/article/documentation/#operations">operations</a>
+              <a class="nav__item nav__sub__item" href="/article/documentation/#security">security</a>
+            </div>
+          {{ end }}
+        {{ else }}
+          <a class="b-nav__{{.Name}} nav__item" href="{{.URL}}">{{.Name}}</a>  
+        {{ end }}
       {{ end }}
-      <a class="btn" href="/downloads">download</a>
+      <a class="btn" href="/article/downloads">download</a>
       <div class="social-links">
         <a class="twitter" href="https://twitter.com/apachekafka" target="_blank">@apachekafka</a>
       </div>
