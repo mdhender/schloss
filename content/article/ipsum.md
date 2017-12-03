@@ -1,33 +1,34 @@
 ---
-title: "Project"
+title: "Ipsum"
 date: 2017-12-02T21:39:00-07:00
 draft: false
 menu:
     articles:
-        name: "project"
-        weight: 8
+        name: "ipsum"
+        weight: 3
 ---
 
-# Project information
+# Sed at euismod libero
 
-<h3 class="bullet">Wiki</h3>
-<a class="pb-10" href="https://cwiki.apache.org/confluence/display/KAFKA/Index" target="_blank">Check out the project wiki</a>
-<h3 class="bullet">Bugs</h3>
-<a class="pb-10" href="https://issues.apache.org/jira/browse/KAFKA" target="_blank">Follow current development and issues</a>
-<h3 class="bullet">Committers</h3>
-<a class="pb-10" href="/article/committers/">See the project committers</a>
-<h3 class="bullet">Security</h3>
-<a class="pb-10" href="/article/project-security/">Learn about Kafka&reg; security</a>
-<h3 class="bullet">Papers &amp; talks</h3>
-<a class="pb-10" href="https://cwiki.apache.org/confluence/display/KAFKA/Kafka+papers+and+presentations" target="_blank">View our papers and talks</a>
-<h3 class="bullet">Developer info</h3>
+   
+<h3 class="bullet">Pellentesque</h3>
+<a class="pb-10" href="/" target="_blank">Ac turpis egestas</a>
+<h3 class="bullet">Habitant</h3>
+<a class="pb-10" href="/" target="_blank">Faucibus et egestas eros</a>
+<h3 class="bullet">Morbi</h3>
+<a class="pb-10" href="/">Donec ut ligula urna</a>
+<h3 class="bullet">Mauris</h3>
+<a class="pb-10" href="/">Vestibulum eu commodo orci</a>
+<h3 class="bullet">Libero tortor, porttitor</h3>
+<a class="pb-10" href="/" target="_blank">Vincidunt eros eu maximus</a>
+<h3 class="bullet">Tempus erat</h3>
 
-* [Getting the code](/article/code/)
-* [Projects](http://cwiki.apache.org/confluence/display/KAFKA/Projects)
-* [How to contribute](/article/contributing/)
-* [Code guidelines](/article/coding-guide/)
-* [Protocol guide](/article/protocol/)
-* [Unit tests](https://builds.apache.org/)
+* [Proin velit ante](/)
+* [Aliquam et ex ac est](/)
+* [Tristique senectus et netus](/)
+* [Congue a Integer](/)
+* [Malesuada fames et](/)
+* [Consectetur Laoreet](/)
 
 <h3 class="bullet">Twitter</h3>
-<a href="https://twitter.com/apachekafka" target="_blank">@apachekafka</a>
+<a href="https://twitter.com/MadTJ84" target="_blank">@MadTJ84</a>
