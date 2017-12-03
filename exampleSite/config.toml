@@ -1,0 +1,30 @@
+baseurl = "http://schloss.example.com/"
+theme = "schloss"
+title = "Documentation Theme"
+languageCode = "en-us"
+disqusShortname = "schloss.example"
+copyright = "Copyright (c) 20YY, Your Name Here; all rights reserved."
+MetaDataFormat = "yaml"
+
+# used by Hugo shortcodes
+GoogleAnalytics = "UA-XXXXX-Y"
+
+# note that the theme expects author both here and in the
+# parameters section
+[author]
+    name = "Franz Kafka"
+
+# used by the theme
+[indexes]
+    tag = "tags"
+    topic = "topics"
+
+[params]
+	copyright_years = "2017"
+
+	[params.twitter]
+		account = "schloss.example"
+
+	[params.license]
+		url = "http://www.apache.org/licenses/"
+		attribution = "Apache License v2"

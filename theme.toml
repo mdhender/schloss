@@ -1,0 +1,19 @@
+name = "schloss"
+license = "MIT"
+licenselink = "https://www.apache.org/licenses/LICENSE-2.0.html"
+description = "A nice theme for documentation."
+homepage = "https://github.com/mdhender/schloss"
+tags = ["documentation", "nice"]
+features = []
+min_version = 0.31
+
+[author]
+  name     = "mdhender"
+  homepage = "https://github.com/mdhender/"
+
+# acknowledgments
+[[original]]
+  name     = "Apache Foundation"
+  homepage = "https://kafka.apache.org/"
+  repo     = "https://git-wip-us.apache.org/repos/asf/kafka-site.git"
+  roots    = "https://kafka.apache.org/"
