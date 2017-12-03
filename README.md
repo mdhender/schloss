@@ -303,6 +303,7 @@ If you look at `intro.html`, you should notice that the layout looks very famili
     </script>
 
 We'll change the include chunks to partials, just like we did for the homepage template:
+
     {{ partial "header.html" . }}
     {{ partial "top.html" . }}
     <div class="content">
