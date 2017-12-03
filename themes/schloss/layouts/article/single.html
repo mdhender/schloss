@@ -6,9 +6,3 @@
     {{.Content}}
 {{ partial "footer.html" . }}
 
-{{ with .Params.menu.articles }}
-<script>
-// Show selected style on nav item
-$(function() { $('.b-nav__{{.name}}').addClass('selected'); });
-</script>
-{{ end }}

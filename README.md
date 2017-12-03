@@ -582,3 +582,39 @@ You should see that the highlight works for each page.
 ## Using Hugo to tag the item
 
 With Hugo's built-in menu support, we add the class as we're looping through the choices.
+
+First, delete the Javascript snippets from `themes/schloss/layouts/index.html` and `themes/schloss/layouts/article/single.html`.
+Check the pages in the browser to confirm that the menu doesn't track the selected page anymore.
+
+Now update `themes/schloss/partials/nav.html` to tag the active page.
+
+    <nav class="b-sticky-nav">
+    <div class="nav-scroller">
+        <div class="nav__inner">
+        {{ $currentPage := . }}
+        {{ range .Site.Menus.articles }}
+        <a class="b-nav__{{.Name}}
+        {{ if $currentPage.IsMenuCurrent "articles" . }}selected{{ end }}
+        nav__item" href="{{.URL}}">{{.Name}}</a>
+        {{ end }}
+        <a class="btn" href="/downloads">download</a>
+        <div class="social-links">
+            <a class="twitter" href="https://twitter.com/apachekafka" target="_blank">@apachekafka</a>
+        </div>
+        </div>
+    </div>
+    <div class="navindicator">
+        {{ range .Site.Menus.articles }}
+        <div class="b-nav__{{.Name}}
+        {{ if $currentPage.IsMenuCurrent "articles" . }}selected{{ end }}
+        navindicator__item"></div>
+        {{ end }}
+    </div>
+    </nav>
+
+The `if` construct checks if the menu item's page is active (meaning that Hugo's currently rendering it).
+If it is, then we add the `selected` class to the `div`.
+That makes the selection active in the browser.
+For all other menu items, the check fails and we don't add to the class.
+
+Congratulations. You can now build with Hugo logic or Javascript.
