@@ -398,7 +398,7 @@ After making the change, `themes/schloss/layouts/article/single.html` contains:
 
 And that means that you've created a single page template.
 
-# Linking to Articles from the Homepage
+# [Linking to Articles from the Homepage](https://github.com/mdhender/schloss/releases/tag/link-menu-to-articles)
 
 This theme has a navigation bar on the left with the name of all the articles.
 To test this out, we'll start with two of the original pages, Perfomance and Contact.
@@ -529,7 +529,7 @@ The site uses Javascript to change the style on the selected menu item:
 We can do that with the template, or we could change the `nav.html` partial to detect the page and add the class.
 Either way should work, so let's try both.
 
-## Using Javascript to tag the item
+## [Using Javascript to tag the item](https://github.com/mdhender/schloss/releases/tag/menu-tag-js)
 
 The Javascript logic depends on a class name being set (like `b-nav__home` or `b-nav__intro`).
 Our content sets the menu item name to a unique value such as `home` or `introduction`.
@@ -579,7 +579,7 @@ Wrapping the `.Params` check in a `with` construct allows us to avoid errors if 
 Save this and check the browser.
 You should see that the highlight works for each page.
 
-## Using Hugo to tag the item
+## [Using Hugo to tag the item](https://github.com/mdhender/schloss/releases/tag/menu-tag-native)
 
 With Hugo's built-in menu support, we add the class as we're looping through the choices.
 
